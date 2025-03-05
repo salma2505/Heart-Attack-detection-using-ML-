@@ -1,4 +1,5 @@
 # Use an official Python runtime as a parent image
+HEAD
 FROM python:3.9
 
 # Set the working directory in the container
@@ -12,3 +13,20 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Command to run the application
 CMD ["python", "app.py"]
+
+
+FROM python:3.9-slim
+# Set the working directory in the container
+WORKDIR /app
+# Copy the current directory contents into the container at /app
+COPY . /app
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+# Make the container's port 80 available to the world outside this container
+EXPOSE 80
+# Define an environment variable
+ENV NAME World
+# Run app.py when the container launches
+CMD ["python", "app.py"]
+
+4ccfb83 (Added Dockerfile)
